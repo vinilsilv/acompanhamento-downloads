@@ -1,0 +1,28 @@
+<mat-card class="custom-card">
+  <mat-card-title>
+    {{ item.id }}
+  </mat-card-title>
+  <mat-card-content>
+    <div>
+      {{ descricaoStatus }}
+    </div>
+    <div *ngIf="exibirCarregamento" class="d-flex align-items-center gap-2">
+      <mat-spinner *ngIf="item.status == status.EmAndamento" [diameter]="15" mode="indeterminate"></mat-spinner>
+      <i *ngIf="item.status == status.Finalizado" class="fa fa-check check-icon"></i>
+      {{item.progress | number: '1.0-0'}}%
+      <mat-progress-bar mode="determinate" [value]="item.progress" color="primary"></mat-progress-bar>
+    </div>
+    
+    <div class="d-flex align-items-center gap-3 mt-2">
+      <button mat-flat-button color="accent" (click)="store.iniciarProcesso(item.id)">
+        Iniciar
+      </button>
+      <button mat-flat-button (click)="store.concluirProcesso(item.id)" color="primary">
+        Concluir
+      </button>
+      <button mat-flat-button color="warn" (click)="store.deletarItem(item.id)">
+        Deletar
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>
